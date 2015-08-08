@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+    <head>
+   
+     <meta charset="utf-8" />
+ <link rel="stylesheet" href="css/index.css">       
+  <title>DisQwerty</title>
+    </head>
+    <body>
+        <div id="chooseButton" onclick="chooseFunc()">Выбрать</div>
+        <div class="app">
+            <div id="inputBox"></div>
+          <table id="fastButtons"></table><br/>
+               <table id="keyboard"></table><br/>
+           <table id="SystemButtons"></table><br/>
+        </div>
+        <img src="img/ic_action_settings.png" id="settingsButton" onclick="onSettings()"/>
+        <div id="settingsBack" onclick="onSettings()"></div>
+        <div id="settings">
+            Настройки:<br/>
+        
+            Тайм-аут переключения: <input id="timeout" type="number" value="1"/> 
+            <br/>
+            Быстрые слова:<br/> <input id="settingsFastWord"> <button onclick="addFast(document.getElementById('settingsFastWord').value);
+                document.getElementById('settingsFastWord').value = '';
+                wordList.innerHTML = '';
+                for (var word in fastwords[0]) {
+                    var select = document.createElement('option');
+                    select.innerHTML = fastwords[0][word];
+                    select.value = word;
+                    wordList.appendChild(select);
+                }">Добавить</button>
+            <br/> Удалить слова:<select multiple id="wordList" onchange="removeFast()" ></select><br/><button onclick="delete(window.localStorage.fastworlds);
+                delete(fastwords[0]);
+                fastwords = [];
+                fastwords[0] = [];
+                loadButtons();">Удалить все.</button><br/>
+            <br/>
+            <button  onclick="start()" id="startbutton">START</button><button id="stopbutton" style="display: none;" onclick="stop()">STOP</button>
+
+        </div>
+        
+         </body>
+</html>
+
+<script src="js/index.js">
+</script>
