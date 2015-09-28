@@ -44,16 +44,16 @@ var app = {
     initialize: function() {
 
 
-          keyrows.push("ёйцукенгшщзхъ");
-        keyrows.push("фывапролджэ");
-        keyrows.push("ячсмитьбю");
+          keyrows.push("qwertyuiop");
+        keyrows.push("asdfghjkl");
+        keyrows.push("zxcvbnm");
         keyrows.push([" ", ", ", ". ", "! ", "? ", "; "]);
       
 
         if (window.localStorage.fastworlds) {
             fastwords[0] = (window.localStorage.fastworlds.split('!@#'));
         }
-        systemrows.push(["Say", "Backspace", "Clear", "Add to Fast"]);
+        systemrows.push([Backspace", "Clear"]);
         
         loadButtons();
         if (window.localStorage.timeout) {
@@ -153,26 +153,8 @@ function chooseFunc() {
                     part = 0;
                     break;
 
-                case "Add to Fast":
-                    tds[inrow][choose].style.background = 'inherit';
-                    tds[inrow][choose].style.color = 'inherit';
-                    addFast(document.getElementById('inputBox').innerHTML);
-                    document.getElementById('inputBox').innerHTML = '';
-                    choose = -1;
-                    part = 0;
-
-                    break;
-  case "Say":
-                    tds[inrow][choose].style.background = 'inherit';
-                    tds[inrow][choose].style.color = 'inherit';
-                    Say(document.getElementById('inputBox').innerHTML);
-        
-                    choose = -1;
-                    part = 0;
-
-                    break;
                default:
-                    document.getElementById('inputBox').innerHTML += choosenkey;  Say(document.getElementById('inputBox').innerHTML);
+                    document.getElementById('inputBox').innerHTML += choosenkey;  
                     tds[inrow][choose].style.background = 'inherit';
                     tds[inrow][choose].style.color = 'inherit';
 
@@ -185,23 +167,6 @@ function chooseFunc() {
     }
 }
 
-function startupWin(result) {
-    console.log("Startup win");
-    // When result is equal to STARTED we are ready to play
-    console.log("Result " + result);
-    //TTS.STARTED==2 use this once so is answered
-    if (result == 2) {
-        navigator.tts.getLanguage(win, fail);
-    }
-}
-
-function win(result) {
-    console.log(result);
-}
-
-function fail(result) {
-    console.log("Error = " + result);
-}
 function addbuttons(arr, table) {
     if (arr[0].length > 0) {
         for (var row in arr) {
