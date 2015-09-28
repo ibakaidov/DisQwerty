@@ -53,7 +53,7 @@ var app = {
         if (window.localStorage.fastworlds) {
             fastwords[0] = (window.localStorage.fastworlds.split('!@#'));
         }
-        systemrows.push([Backspace", "Clear"]);
+        systemrows.push(["Backspace", "Clear"]);
         
         loadButtons();
         if (window.localStorage.timeout) {
