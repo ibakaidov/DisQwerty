@@ -1,33 +1,21 @@
-        
+
    table {
                 font-size: 575%;
-                width: 50%;
+                width: 100%;
             }
             td {
-                
+
                 border: 1px black solid;
-            text-align: center;    
-            
-            
-            }
-            #chooseButton { background: #5A009D;
-   -moz-user-select: none;
--khtml-user-select: none;
-user-select: none;      
-        right: 0px;
-           height: 86%;
-           width: 20%;
-           position: absolute;
-                border: 10px black solid;
-                
-                margin-top: 0px;
+            text-align: center;
+
+
             }
             #inputBox {
-        font-weight: 1000;            border: 1px black solid;
+        font-weight: 1000;
+           border: 1px black solid;
                 font-size: 100px;
                 min-height:  110px;
                 margin-bottom: 5px;
-                width: 57%;
                 word-wrap: break-word;
             }
             #settings{
@@ -54,6 +42,6 @@ user-select: none;
                 left:0;
                 bottom: 0;
                 top: 0;
-             z-index: 4;   
+             z-index: 4;
              display: none;
             }

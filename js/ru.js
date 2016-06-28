@@ -18,21 +18,9 @@ var fastButtons = document.getElementById('fastButtons');
 var SystemButtons = document.getElementById('SystemButtons');
 var wordList = document.getElementById("wordList");
 
-var watchID;
+var dectecting = true;
 
-var success = function() {
-    alert('Message sent successfully');
-};
-var error = function(e) {
-    alert('Message Failed:' + e);
-};
-function onSuccess(acceleration) {
-    var beatValue = 1 / document.getElementById('beatValue').value;
-    if ((acceleration.x + acceleration.y + acceleration.z > startacc + beatValue) || (acceleration.x + acceleration.y + acceleration.z < startacc - beatValue))
-    {
-        chooseFunc();
-    }
-}
+var watchID;
 
 function onError() {
     alert('onError!');
@@ -48,13 +36,13 @@ var app = {
         keyrows.push("фывапролджэ");
         keyrows.push("ячсмитьбю");
         keyrows.push([" ", ", ", ". ", "! ", "? ", "; "]);
-      
+
 
         if (window.localStorage.fastworlds) {
             fastwords[0] = (window.localStorage.fastworlds.split('!@#'));
         }
         systemrows.push(["Backspace", "Clear"]);
-        
+
         loadButtons();
         if (window.localStorage.timeout) {
             document.getElementById('timeout').value = window.localStorage.timeout;
@@ -75,7 +63,7 @@ function start() {
     part = 0;
     timer = setInterval(function()
     {
-
+      dectecting=true;
 
         if (part === 0) {
             if (choose > -1) {
@@ -115,9 +103,11 @@ function stop() {
     document.getElementById('startbutton').style.display = "inherit";
     document.getElementById('stopbutton').style.display = "none";
     clearInterval(timer);
-    
+
 }
 function chooseFunc() {
+  if (!dectecting) return;
+  dectecting=false;
     if (isRun) {
         if (part === 0) {
             part = 1;
@@ -154,7 +144,7 @@ function chooseFunc() {
                     break;
 
                default:
-                    document.getElementById('inputBox').innerHTML += choosenkey;  
+                    document.getElementById('inputBox').innerHTML += choosenkey;
                     tds[inrow][choose].style.background = 'inherit';
                     tds[inrow][choose].style.color = 'inherit';
 
@@ -163,6 +153,7 @@ function chooseFunc() {
                     break;
             }
             ;
+            choosenkey='';
         }
     }
 }
@@ -263,20 +254,20 @@ function removeFast() {
     loadButtons();
 }
 
-function successInit(result) {    
-    // display the extracted text   
-    alert(result); 
+function successInit(result) {
+    // display the extracted text
+    alert(result);
     // make the purchase
     inappbilling.buy(successPurchase, errorCallback,"donate");
 
-}    
+}
 function errorCallback(error) {
-   alert(error); 
-} 
+   alert(error);
+}
 
 function successPurchase(productId) {
    alert("Your item has been purchased!");
-} 
+}
 
 
 app.initialize();
