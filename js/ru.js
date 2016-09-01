@@ -32,10 +32,10 @@ var app = {
     initialize: function() {
 
 
-          keyrows.push("йцукенгшщзхъ");
-        keyrows.push("фывапролджэ");
-        keyrows.push("ячсмитьбю");
-        keyrows.push([" ", ", ", ". ", "! ", "? ", "; "]);
+          keyrows.push("123");
+        keyrows.push("456");
+        keyrows.push("788");
+        keyrows.push("()+-*/=√^");
 
 
         if (window.localStorage.fastworlds) {
