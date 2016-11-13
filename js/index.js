@@ -17,7 +17,10 @@ var keyboard = document.getElementById('keyboard');
 var fastButtons = document.getElementById('fastButtons');
 var SystemButtons = document.getElementById('SystemButtons');
 var wordList = document.getElementById("wordList");
-
+//Timeout to prevent multiply clicks
+var pressTimeout = 1000;
+//Prevent flag
+var preventFlag = false;
 var watchID;
 
 var success = function() {
@@ -44,17 +47,17 @@ var app = {
     initialize: function() {
 
 
-          keyrows.push("qwertyuiop");
+		keyrows.push("qwertyuiop");
         keyrows.push("asdfghjkl");
         keyrows.push("zxcvbnm");
         keyrows.push([" ", ", ", ". ", "! ", "? ", "; "]);
-      
+
 
         if (window.localStorage.fastworlds) {
             fastwords[0] = (window.localStorage.fastworlds.split('!@#'));
         }
         systemrows.push(["Backspace", "Clear"]);
-        
+
         loadButtons();
         if (window.localStorage.timeout) {
             document.getElementById('timeout').value = window.localStorage.timeout;
@@ -67,8 +70,6 @@ var app = {
 
 function start() {
     isRun = true;
-    document.getElementById('startbutton').style.display = "none";
-    document.getElementById('stopbutton').style.display = "inherit";
     var timeout = document.getElementById('timeout').value;
     window.localStorage.timeout = document.getElementById('timeout').value;
     choose = -1;
@@ -112,12 +113,17 @@ function start() {
 }
 function stop() {
     isRun = false;
-    document.getElementById('startbutton').style.display = "inherit";
-    document.getElementById('stopbutton').style.display = "none";
+    // document.getElementById('startbutton').style.display = "inherit";
+    // document.getElementById('stopbutton').style.display = "none";
     clearInterval(timer);
-    
+
 }
 function chooseFunc() {
+	if(preventFlag) return
+	if(part != 1){
+		preventFlag = true
+		setTimeout(function(){ preventFlag = false}, pressTimeout)
+	}
     if (isRun) {
         if (part === 0) {
             part = 1;
@@ -154,7 +160,7 @@ function chooseFunc() {
                     break;
 
                default:
-                    document.getElementById('inputBox').innerHTML += choosenkey;  
+                    document.getElementById('inputBox').innerHTML += choosenkey;
                     tds[inrow][choose].style.background = 'inherit';
                     tds[inrow][choose].style.color = 'inherit';
 
@@ -263,20 +269,20 @@ function removeFast() {
     loadButtons();
 }
 
-function successInit(result) {    
-    // display the extracted text   
-    alert(result); 
+function successInit(result) {
+    // display the extracted text
+    alert(result);
     // make the purchase
     inappbilling.buy(successPurchase, errorCallback,"donate");
 
-}    
+}
 function errorCallback(error) {
-   alert(error); 
-} 
+   alert(error);
+}
 
 function successPurchase(productId) {
    alert("Your item has been purchased!");
-} 
+}
 
 
 app.initialize();
@@ -287,4 +293,32 @@ app.initialize();
 },false);
 function Say(text){
 new Audio("http://translate.google.com/translate_tts?tl=RU&q="+encodeURI(text)).play();
+}
+/*
+	Функция для определения необходимого экшена( Выбор буквы/строки || Запуск/Остановка перебора)
+	evt [Object] - Объект евента
+	@void
+*/
+function resolveAct(evt){
+	if(evt.keyCode == '32'){
+		if(isRun){
+			stop()
+		}else{
+			start()
+		}
+	}else if(isRun){
+		chooseFunc()
+	}
+}
+
+
+document.body.onclick = function(){
+	if(isRun){
+		chooseFunc()
+	}
+}
+document.body.onkeyup = resolveAct
+document.getElementById('timeout-press').onchange = function(evt){
+	var intValue = (parseInt(evt.target.value) == NaN)? 1 : parseInt(evt.target.value)
+	pressTimeout = intValue * 1000
 }
