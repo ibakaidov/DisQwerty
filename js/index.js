@@ -47,9 +47,9 @@ var app = {
     initialize: function() {
 
 
-		keyrows.push("qwertyuiop");
-        keyrows.push("asdfghjkl");
-        keyrows.push("zxcvbnm");
+		keyrows.push("йцукенгшщзхъ");
+        keyrows.push("фывапролджэ");
+        keyrows.push("ячсмитьбю");
         keyrows.push([" ", ", ", ". ", "! ", "? ", "; "]);
 
 
